@@ -1,0 +1,25 @@
+{
+  "name": "@den9yon9/zh-scanner",
+  "version": "1.0.4",
+  "description": "扫描js,ts代码中的汉字字符串",
+  "scripts": {
+    "test": "node ./src/cli.js --files './src/**/*.{ts,js,tsx,jsx}'"
+  },
+  "main": "./src/index.js",
+  "author": "",
+  "bin": {
+    "zh-scanner": "./src/cli.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@babel/parser": "^7.16.7",
+    "@babel/traverse": "^7.16.7",
+    "glob": "^7.2.0",
+    "json-stable-stringify": "^1.0.1",
+    "minimist": "^1.2.5",
+    "picocolors": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.8"
+  }
+}
