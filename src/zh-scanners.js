@@ -12,7 +12,8 @@ const { md5, isHans } = require("./utils.js");
  */
 
 module.exports = async function zhScanners(files) {
-  const filePaths = await promisify(glob)(files);
+  const fileArr = await promisify(glob)(files);
+  const filePaths = fileArr.filter(item => !/node_modules/.test(item)) 
   let locale = {};
 
   await Promise.all(
