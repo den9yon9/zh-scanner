@@ -1,6 +1,6 @@
 {
   "name": "@den9yon9/zh-scanner",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "扫描js,ts代码中的汉字字符串",
   "scripts": {
     "test": "node ./src/cli.js --files './src/**/*.{ts,js,tsx,jsx}'"
