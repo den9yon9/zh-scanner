@@ -11,9 +11,9 @@ const { files, out } = minimist(process.argv.slice(2));
 
 (async () => {
   const result = await zhScanners(files)
-  console.log('\n' + colors.green(`扫描完成! 共扫描到${Object.keys(result).length}条汉语词句`) + '\n')
   Object.values(result).forEach(item => console.log(colors.yellow(item)))
-  writeFileSync(out, stringify(result, { space: 2 }));
+  writeFileSync(out, stringify(result, { space: 2 }) + '\n');
   let storePath = path.resolve('.', out)
+  console.log('\n' + colors.green(`扫描完成! 共扫描到${Object.keys(result).length}条记录`))
   console.log('\n' + colors.green(`结果已存入${storePath}`) + '\n')
 })();
