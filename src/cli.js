@@ -7,10 +7,10 @@ const stringify = require("json-stable-stringify");
 const zhScanners = require("./zh-scanners.js");
 const { writeFileSync } = require("fs");
 
-const { files, out } = minimist(process.argv.slice(2));
+const { files, out, i, inverse } = minimist(process.argv.slice(2));
 
 (async () => {
-  const result = await zhScanners(files)
+  const result = await zhScanners(files, inverse || i)
   Object.values(result).forEach(item => console.log(colors.yellow(item)))
   writeFileSync(out, stringify(result, { space: 2 }) + '\n');
   let storePath = path.resolve('.', out)

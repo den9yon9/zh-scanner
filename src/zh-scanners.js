@@ -11,9 +11,9 @@ const { md5, isHans } = require("./utils.js");
  * @returns 汉字json
  */
 
-module.exports = async function zhScanners(files) {
+module.exports = async function zhScanners(files, inverse) {
   const fileArr = await promisify(glob)(files);
-  const filePaths = fileArr.filter(item => !/node_modules/.test(item)) 
+  const filePaths = fileArr.filter(item => !/node_modules/.test(item))
   let locale = {};
 
   await Promise.all(
@@ -42,7 +42,8 @@ module.exports = async function zhScanners(files) {
                 );
                 if (ifSkip) return;
                 if (path.parent.type === "TSLiteralType") return;
-                if (!isHans(path.node.value)) return;
+                if (inverse ? isHans(path.node.value) : !isHans(path.node.value)) return;
+                if (!path.node.value.trim()) return;
                 const md5Key = md5(path.node.value.trim()).substr(0, 6);
                 if (!locale[md5Key]) locale[md5Key] = path.node.value.trim();
               },
