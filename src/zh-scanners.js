@@ -23,7 +23,6 @@ module.exports = async function zhScanners(files) {
         sourceType: "unambiguous",
         plugins: ["jsx", "typescript"],
       });
-      let comments = ast.comments;
 
       traverse(ast, {
         enter(path) {
@@ -31,20 +30,16 @@ module.exports = async function zhScanners(files) {
             const ifSkip = path.node.directives.map((item) => item.value.value).includes("skip scanner");
             if (ifSkip) return;
             path.traverse({
+              TemplateLiteral(path) {
+                if (path.node.expressions.length !== 0) return;
+                const [{ value }] = path.node.quasis;
+                if (isHans(value)) return;
+                const notHans = value;
+                const md5Key = md5(notHans.trim()).substr(0, 6);
+                if (!locale[md5Key]) locale[md5Key] = path.node.value.trim();
+              },
               "StringLiteral|JSXText"(path) {
-                const line = path.node.loc.start.line;
-                let ifSkip = comments.find(
-                  (item) => item.loc.start.line === line - 1 && item.value.includes("skip scanner")
-                );
-                if (ifSkip) return;
                 if (path.parent.type === "TSLiteralType") return;
-                if (!isHans(path.node.value)) {
-                  const line = path.node.loc.start.line;
-                  let ifInclude = comments.find(
-                    (item) => item.loc.start.line === line - 1 && item.value.includes("include scanner")
-                  );
-                  if (!ifInclude) return;
-                }
                 if (!path.node.value.trim()) return;
                 const md5Key = md5(path.node.value.trim()).substr(0, 6);
                 if (!locale[md5Key]) locale[md5Key] = path.node.value.trim();
