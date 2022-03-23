@@ -40,6 +40,7 @@ module.exports = async function zhScanners(files) {
               },
               "StringLiteral|JSXText"(path) {
                 if (path.parent.type === "TSLiteralType") return;
+                if (!isHans(path.node.value)) return;
                 if (!path.node.value.trim()) return;
                 const md5Key = md5(path.node.value.trim()).substr(0, 6);
                 if (!locale[md5Key]) locale[md5Key] = path.node.value.trim();
