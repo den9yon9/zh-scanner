@@ -11,8 +11,9 @@ module.exports = function babelPluginHansReplacer({ types: t, template }) {
           TemplateLiteral(path) {
             if (path.node.expressions.length !== 0) return;
             const [{ value }] = path.node.quasis;
-            if (isHans(value)) return;
-            const notHans = value;
+            const { raw, cooked } = value;
+            if (isHans(cooked)) return;
+            const notHans = cooked;
             const md5Key = md5(notHans.trim()).substr(0, 6);
             const build = template("window.locale?.[%%md5Key%%]||%%notHans%%");
             const ast = build({

@@ -33,8 +33,9 @@ module.exports = async function zhScanners(files) {
               TemplateLiteral(path) {
                 if (path.node.expressions.length !== 0) return;
                 const [{ value }] = path.node.quasis;
-                if (isHans(value)) return;
-                const notHans = value;
+                const { raw, cooked } = value;
+                if (isHans(cooked)) return;
+                const notHans = cooked;
                 const md5Key = md5(notHans.trim()).substr(0, 6);
                 if (!locale[md5Key]) locale[md5Key] = path.node.value.trim();
               },
