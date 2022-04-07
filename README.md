@@ -1,6 +1,6 @@
 # zh-scanner
 
-## 扫描 js,ts,tsx,jsx 代码中的汉字, 并提取到指定文件
+## 扫描 js(x),ts(x) 代码中的汉字, 并提取到指定文件
 
 ### useage
 
@@ -17,7 +17,7 @@ $ npm i zh-scanner --save-dev
 ```json
 {
   "scripts": {
-    "scanner": "scanner --files '**/*.{tsx,ts,jsx,js}' --out ./zh-CN.json"
+    "scanner": "zh-scanner --files '**/*.{tsx,ts,jsx,js}' --out ./zh-CN.json"
   }
 }
 ```
