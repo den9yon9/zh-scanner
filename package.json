@@ -1,14 +1,14 @@
 {
   "name": "@den9yon9/zh-scanner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "扫描js,ts代码中的汉字字符串",
   "scripts": {
-    "test": "./src/cli.js --files './src/*.{ts,js,tsx,jsx}' --out ./en.json"
+    "test": "./src/cli.cjs --files './src/*.{ts,js,tsx,jsx}' --out ./en.json"
   },
-  "main": "./src/index.js",
+  "main": "./src/index.cjs",
   "author": "",
   "bin": {
-    "zh-scanner": "./src/cli.js"
+    "zh-scanner": "./src/cli.cjs"
   },
   "license": "ISC",
   "dependencies": {
